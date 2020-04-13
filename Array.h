@@ -15,10 +15,13 @@ class Array
     //Others
     T get(int,int);
     T set(T, int, int);
+    void reset();
 
     //getters
     int getX();
     int getY();
+
+
 
     private:
     T** arr;
@@ -63,7 +66,8 @@ T Array<T>::get(int xCor, int yCor)
     if( (xCor < 0 || xCor>x) || (yCor < 0 || yCor>y))
         throw "Out of bounds";
 
-    return arr[yCor][xCor];
+    T data = arr[yCor][xCor];   
+    return data;
 }
 
 template<class T>
@@ -91,6 +95,17 @@ int Array<T>::getY()
     return y;
 }
 
+template<class T>
+void Array<T>::reset()
+{
+    for(int i = 0; i < x; i++)
+    {
+        for(int j = 0; j < y; j++)
+        {
+            arr[j][i] = 'x';
+        }
+    }
+}
 
 
 #endif
