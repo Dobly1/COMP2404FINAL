@@ -6,9 +6,8 @@
 class Dorc:public Fighter
 {
     public:
-    //
-    private:
-    //
+    Dorc(int=0,int=0);
+    
 
 };
 

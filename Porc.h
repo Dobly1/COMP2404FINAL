@@ -6,10 +6,7 @@
 class Porc:public Fighter
 {
     public:
-    Porc();
-
-    private:
-    //
+    Porc(int=10,int=0);
 
 };
 

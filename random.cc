@@ -7,6 +7,7 @@
   You may need to include <cstdlib> and <time.h> libraries
 */
 
+
 int random(int max)
 {
 	double r = ( (double)rand() / ((double)(RAND_MAX)+(double)(1)) ); 

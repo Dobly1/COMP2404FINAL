@@ -7,15 +7,18 @@ Player::Player(std::string n,int s,int a, int h, int y, char av):Character(n,s,a
 
 void Player::move(int maxX, int maxY)
 {
+    if(!alive)
+        return;
+
+
     //Generate a random direction
     //|0 = stay | 1 = up | 2 = down
-    srand((unsigned)time(NULL));
     int randDir = random(3);
     
     //Move in the correct direction
-    if(randDir==1)
+    if(randDir == 1)
         yPos-=1;
-    if(randDir==2)
+    if(randDir == 2)
         yPos+=1;
 
     xPos += 1;

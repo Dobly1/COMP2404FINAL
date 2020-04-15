@@ -2,21 +2,53 @@
 #define GAME_H
 
 #include <list>
-#include "Character.h"
-#include "Array.h"
+#include <iostream>
+#include "unistd.h"
 
-#define MAX_X 25
-#define MAX_Y 5
+#include "Character.h"
+#include "Player.h"
+#include "Fighter.h"
+
+#include "Borc.h"
+#include "Dorc.h"
+#include "Porc.h"
+
+#include "Dragon.h"
+
+#include "Array.h"
+#include "playerLogger.h"
+#include "View.h"
+
+
+using namespace std;
+
+//Game Size
+#define MAX_X1 30
+#define MAX_Y1 10           
+
+//Emerald Cave Location
+#define EM_CAVE_X MAX_X1-1
+#define EM_CAVE_Y_START 1
+#define EM_CAVE_Y_SIZE 3
 
 class Game
 {
     public:
+    Game();
+    ~Game();
     void launch();
-    
-    private:
-    std::list<Character*> Adventurers;   
-    Array<char> grid(MAX_X,MAX_Y);    
 
+    private:    
+    std::list<Character*> entities;   
+    Array<char> grid;    
+    playerLogger log;
+
+    void printArrayTemp();
+
+    void collisionCheck();
+    void deathCheck();
+
+    void spawnNewEntity();
 
     void initFighters();
     void initPlayers();

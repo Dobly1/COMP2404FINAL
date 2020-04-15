@@ -1,8 +1,8 @@
-#ifndef ARRRAY_H
-#define ARRAY_H
-
 #include <iostream>
 using namespace std;
+
+#ifndef ARRAY2D_H
+#define ARRAY2D_H
 
 template<class T>
 class Array
@@ -15,7 +15,8 @@ class Array
     //Others
     T get(int,int);
     T set(T, int, int);
-    void reset();
+    void reset(T);
+    void fill(T);    
 
     //getters
     int getX();
@@ -29,6 +30,7 @@ class Array
     const int y;
 };
 
+
 template<class T>
 Array<T>::Array(int xDim, int yDim):x(xDim),y(yDim)
 {
@@ -38,14 +40,6 @@ Array<T>::Array(int xDim, int yDim):x(xDim),y(yDim)
     {
         arr[i] = new T[x];
     }   
-
-    for(int i = 0; i < x; i++)
-    {
-        for(int j = 0; j < y; j++)
-        {
-            arr[j][i] = 'x';
-        }
-    }
 
 }
 
@@ -58,6 +52,19 @@ Array<T>::~Array()
     }
 
     delete[] arr;
+}
+
+template<class T>
+void Array<T>::fill(T t)
+{
+    //Init 
+    for(int i = 0; i < x; i++)
+    {
+        for(int j = 0; j < y; j++)
+        {
+            arr[j][i] = t;
+        }
+    }
 }
 
 template<class T>
@@ -96,16 +103,15 @@ int Array<T>::getY()
 }
 
 template<class T>
-void Array<T>::reset()
+void Array<T>::reset(T t)
 {
     for(int i = 0; i < x; i++)
     {
         for(int j = 0; j < y; j++)
         {
-            arr[j][i] = 'x';
+            arr[j][i] = t;
         }
     }
 }
-
 
 #endif

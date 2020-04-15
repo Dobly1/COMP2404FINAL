@@ -6,9 +6,7 @@
 class Borc:public Fighter
 {
     public:
-    //
-    private:
-    //
+    Borc(int=0,int=0);
 
 };
 

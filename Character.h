@@ -3,6 +3,22 @@
 
 #include <iostream>
 
+/*
+Class: Character
+Author: Callum M
+
+Data Members:
+    -std::string name
+        -The name of the player
+    -int health
+        -The health of a player in integer value
+    -int armour 
+        -The armou value of a player represented as an init
+
+*/
+
+
+
 class Character
 {
     public:
@@ -20,6 +36,8 @@ class Character
     bool isAlive();
     void getPos(int&,int&);
     char getAvatar();
+
+    void kill();
 
     private:
 
@@ -42,6 +60,8 @@ class Character
     //Position Information
     int xPos;
     int yPos;
+
+    //Attrivutes that derived classes need to access
     bool alive;
     int strength;
 
