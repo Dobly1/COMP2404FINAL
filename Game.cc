@@ -1,6 +1,7 @@
 #include "Game.h"
+#include <string>
 
-Game::Game():grid(MAX_X1,MAX_Y1),log(EM_CAVE_X, EM_CAVE_Y_START, EM_CAVE_Y_SIZE)
+Game::Game():grid(MAX_X1,MAX_Y1),log(EM_CAVE_X, EM_CAVE_Y_START, EM_CAVE_Y_SIZE),view(EM_CAVE_Y_START, EM_CAVE_Y_SIZE)
 {
     //Nothing Here
 }
@@ -29,68 +30,45 @@ void Game::launch()
     initPlayers();
     initFighters();
 
+
     //Make the game board initially empty
     grid.fill('~');
 
     list<Character*>::iterator it;
 
-    int x, y;
+    draw();
 
-    //Draw all the players on the map to start
-    for(it = entities.begin(); it != entities.end(); ++it)
-    {
-        try
-        {
-            (*it)->getPos(x,y);
-            grid.set((*it)->getAvatar(), x, y);
-        }
-        catch(const char* error)
-        {
-            cout << error << " | " << (*it)->getAvatar() << endl;
-        }
-        
+    int x,y;
 
-    }
-
-    printArrayTemp();
+    view.displayArr(grid);
 
     bool running = true;
+
 
     //Main game loop
     while(running)
     {
         grid.fill('~');
-
+    
         //See if we should spawn a new enemy
         spawnNewEntity();
 
-        //Move all the characters to their new positions
         for(it = entities.begin(); it != entities.end(); ++it)
         {
-            //Move each entity
-            (*it)->move(MAX_X1,MAX_Y1);
-
-            //Draw it on the grid
-            (*it)->getPos(x,y);
-
-            //cout << "Setting : " << (*it)->getAvatar() << " At position: ("<< x << "," << y << ")" << endl;
-
-            grid.set((*it)->getAvatar(), x, y);
+            (*it)->move(MAX_X1,MAX_Y1); //Move each entity
         }   
-
-        //Preform checks
-        collisionCheck();
-        deathCheck();
         
 
-        //Output the data to the screen
-            
+        collisionCheck();
+        deathCheck();
+        draw();
 
-        //Sleep a little to ensure numbers are random
+
+        //So we can actually see the movement
         unsigned int sleepTime = 250000;
         usleep(sleepTime);
 
-        printArrayTemp();
+        view.displayArr(grid);
 
         //Ask the log if we should keep running
         log.keepRunning(running);
@@ -101,11 +79,15 @@ void Game::launch()
 
     if(winner)
     {
-        cout << "And the winner is : " << winner->getAvatar() << "!" << endl;
+        //cout << "And the winner is : " << winner->getAvatar() << "!" << endl;
+        std::string out = "And the winner is: ";
+        out += winner->getAvatar();
+        view.printStr(out);
     }
     else
     {
-        cout << "Sorry no winners today :(, only losers" << endl;
+        std::string loseString = "Sorry no winners today :( Only losers";
+        view.printStr(loseString);
     }
     
 
@@ -126,26 +108,41 @@ void Game::initPlayers()
 
 void Game::initFighters()
 {
-    entities.push_back(new Dragon(MAX_X1-1, MAX_Y1));
+    entities.push_back(new Dragon(MAX_X1-1, MAX_Y1, EM_CAVE_Y_START, EM_CAVE_Y_SIZE));
 }
 
 void Game::spawnNewEntity()
 {
-    int spawnChances = random(10);
+    int sP = random(10);
 
     //Not Spawn Odds
-    if(spawnChances >= 6)
+    if(sP >= 6)
         return;
 
     //Borc
-    if(spawnChances <= 1)
+    if(sP <= 1){
         entities.push_back(new Borc(MAX_X1-1, MAX_Y1-1));
+        return;
+    }
 
-    if(spawnChances <= 3)
+    if(sP == 2){
+        //PathFinding* p = new PathFinding(entities);
+        //entities.push_back(new Miner(p, MAX_X1-1, MAX_Y1-1));
+        return;
+    }
+
+
+    if(sP <= 3){
         entities.push_back(new Dorc(MAX_X1-1, MAX_Y1-1));
+        return;
+    }
+        
 
-    if(spawnChances <= 5)
+    if(sP <= 5){
         entities.push_back(new Porc(MAX_X1-1, MAX_Y1-1));
+        return;
+    }
+        
 }
 
 void Game::collisionCheck()
@@ -195,22 +192,25 @@ void Game::deathCheck()
     }
 }
 
-void Game::printArrayTemp()
+void Game::draw()
 {
-    int x = grid.getX();
-    int y = grid.getY();
+    list<Character*>::iterator it;
 
-    cout << "\033[2J\033[1;1H";
+    int x, y;
 
-    cout << endl;
-
-    for(int i=0; i<y; i++){
-        for(int j=0; j<x; j++){
-            cout << " " << grid.get(j,i);
+    //Draw all the players on the map to start
+    for(it = entities.begin(); it != entities.end(); ++it)
+    {
+        try
+        {
+            (*it)->getPos(x,y);
+            grid.set((*it)->getAvatar(), x, y);
         }
-        cout << endl;
-    } 
+        catch(const char* error)
+        {
+            cout << error << " | " << (*it)->getAvatar() << endl;
+        }
+        
 
-  
-    cout << endl;
+    }
 }

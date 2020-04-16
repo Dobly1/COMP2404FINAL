@@ -21,10 +21,9 @@ name(n),strength(s),armour(a),health(h),avatar(av),fightAble(f),xPos(x),alive(tr
 void Character::fight(Character* c1, Character* c2)
 {
     //Make sure theres 1 player and 1 fighter
-    if(!c1->isFightable() && !c2->isFightable())
-        return;  
+    if(c1->isFightable() && c2->isFightable() || !c1->isFightable() && !c2->isFightable())
+        return;
 
-  
     c1->hit(c2);
     c2->hit(c1);
     

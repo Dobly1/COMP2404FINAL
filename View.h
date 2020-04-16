@@ -7,11 +7,15 @@
 class View
 {
     public:
-    void displayArr(Array<char>);
-    void clearDisplay();
+    View(int=0,int=0);
+    void displayArr(Array<char>&);
+    void printStr(std::string&);
+
+
 
     private:
-    //
+    int emYStart;
+    int emYSize;
 
 
 

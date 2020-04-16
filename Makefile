@@ -1,5 +1,5 @@
-main : Main2.cc Array.h random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o
-	g++ -o main Main2.cc random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o
+main : Main2.cc Array.h random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o PathFinding.o Seeker.o Miner.o
+	g++ -o main Main2.cc random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o PathFinding.o Seeker.o Miner.o
 
 random.o : random.h random.cc
 	g++ -c random.cc
@@ -33,6 +33,15 @@ playerLogger.o : playerLogger.cc playerLogger.h
 
 View.o : View.cc View.h
 	g++ -c View.cc
+
+PathFinding.o : PathFinding.cc PathFinding.h
+	g++ -c PathFinding.cc
+
+Seeker.o : Seeker.cc Seeker.h Character.cc Character.h
+	g++ -c Seeker.cc
+
+Miner.o : Miner.cc Miner.h Seeker.cc Seeker.h Character.cc Character.h
+	g++ -c Miner.cc
 
 clean : 
 	rm *.o main
