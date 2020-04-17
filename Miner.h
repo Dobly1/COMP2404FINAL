@@ -8,12 +8,7 @@ class Miner:public Seeker
 {
     public:
     Miner(PathFinding*,int,int);
-    private:
-    //
-
-
-
-
+    
 };
 
 

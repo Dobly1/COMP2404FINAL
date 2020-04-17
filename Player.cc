@@ -10,6 +10,12 @@ void Player::move(int maxX, int maxY)
     if(!alive)
         return;
 
+    if(snared)
+    {
+        snared = false;
+        return;
+    }
+
 
     //Generate a random direction
     //|0 = stay | 1 = up | 2 = down

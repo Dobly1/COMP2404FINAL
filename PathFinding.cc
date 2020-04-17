@@ -1,6 +1,6 @@
 #include "PathFinding.h"
 
-PathFinding::PathFinding(list<Character*> entities)
+PathFinding::PathFinding(list<Character*>& entities)
 {
     //Randomly find a player
     int start = random(entities.size()-1);
@@ -11,10 +11,17 @@ PathFinding::PathFinding(list<Character*> entities)
     for(int i = 0; i < start; i++)
         ++it;
 
-    while(1)
+    //Make sure we haven't gone too far
+    if(it == entities.end())
+        it = entities.begin();
+
+    for(int i = 0; i < entities.size(); i++)
     {
+        if(it == entities.end())
+            it = entities.begin();
+
         //See if current object is a player
-        if( !(*it)->isFightable() )
+        if( !(*it)->isFightable() && (*it)->isAlive() )
         {
             tracked = (*it);
             return;
@@ -28,19 +35,30 @@ PathFinding::PathFinding(list<Character*> entities)
             
 
         //Iterate forward
-        ++it;
-
-        
+        ++it;        
     }
+
+    //If for whatever reason the program doesn't find anyone to track (Shouldn't happen), ensures that tracked points to NULL
+    tracked = NULL;
 
 }
 
 //Send which direction to go to the new seeker class
 void PathFinding::getDirection(int& curX, int& curY, int& newDirec, int& moveX)
 {
-    int trackedX, trackedY;
+    if(tracked == NULL)
+    {
+        newDirec = 0;
+        moveX = 0;
+    }
 
-    cout << "Currently Tracking: " << tracked->getAvatar() << endl;
+    if( !tracked->isAlive() )
+    {
+        newDirec = 0;
+        moveX = 0;
+    }  
+
+    int trackedX, trackedY;
 
     tracked->getPos(trackedX, trackedY);
 
@@ -48,6 +66,7 @@ void PathFinding::getDirection(int& curX, int& curY, int& newDirec, int& moveX)
     if(trackedX > curX)
     {
         newDirec = 0;
+        moveX = 0;
         return;
     }
         

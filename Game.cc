@@ -50,14 +50,15 @@ void Game::launch()
     {
         grid.fill('~');
     
-        //See if we should spawn a new enemy
-        spawnNewEntity();
+        
 
         for(it = entities.begin(); it != entities.end(); ++it)
         {
             (*it)->move(MAX_X1,MAX_Y1); //Move each entity
         }   
         
+        //See if we should spawn a new enemy
+        spawnNewEntity();
 
         collisionCheck();
         deathCheck();
@@ -126,8 +127,8 @@ void Game::spawnNewEntity()
     }
 
     if(sP == 2){
-        //PathFinding* p = new PathFinding(entities);
-        //entities.push_back(new Miner(p, MAX_X1-1, MAX_Y1-1));
+        PathFinding* p = new PathFinding(entities);
+        entities.push_back(new Miner(p, MAX_X1-1, MAX_Y1-1));
         return;
     }
 
@@ -137,6 +138,13 @@ void Game::spawnNewEntity()
         return;
     }
         
+    if(sP == 4)
+    {
+        PathFinding* p = new PathFinding(entities);
+        entities.push_back(new Snarer(p, MAX_X1-1, MAX_Y1-1));
+        return;
+    }
+
 
     if(sP <= 5){
         entities.push_back(new Porc(MAX_X1-1, MAX_Y1-1));

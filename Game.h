@@ -17,12 +17,13 @@
 
 #include "Seeker.h"
 #include "Miner.h"
+#include "Snarer.h"
+
 
 #include "Array.h"
 #include "playerLogger.h"
 #include "View.h"
 #include "PathFinding.h"
-
 
 using namespace std;
 
@@ -34,6 +35,23 @@ using namespace std;
 #define EM_CAVE_X MAX_X1-1
 #define EM_CAVE_Y_START 1
 #define EM_CAVE_Y_SIZE 3
+
+/*
+Class: 
+Author: Callum M
+
+Purpose:
+    -
+
+Data Members:
+    -
+
+Member Functions:
+    -
+
+*/
+
+
 
 class Game
 {

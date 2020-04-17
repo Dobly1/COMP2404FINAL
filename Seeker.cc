@@ -4,7 +4,6 @@ Seeker::Seeker(PathFinding* p, std::string name, int x, int y, char av):Characte
 {
     //Nothing necessary here
     strength = 1;
-
 }
 
 Seeker::~Seeker()
@@ -14,7 +13,7 @@ Seeker::~Seeker()
 
 void Seeker::move(int maxX, int maxY)
 {
-    cout << "CORE CHECK" << endl;
+
 
     //Don't move if you're dead
     if(!alive)
@@ -23,6 +22,7 @@ void Seeker::move(int maxX, int maxY)
     int direcY, direcX;
 
     path->getDirection(xPos, yPos, direcY, direcX);
+
 
     //Move Seeker appropriately
     yPos += direcY;
@@ -37,7 +37,7 @@ void Seeker::move(int maxX, int maxY)
         xPos = 0;
         kill();
     }
-    if(xPos == maxX)
+    if(xPos >= maxX)
         xPos = maxX-1;
 
 
@@ -46,7 +46,5 @@ void Seeker::move(int maxX, int maxY)
 
     if(yPos >= maxY)
         yPos = maxY -1;
-
-
 
 }

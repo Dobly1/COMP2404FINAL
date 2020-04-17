@@ -3,6 +3,21 @@
 
 #include "Fighter.h"
 
+/*
+Class: 
+Author: Callum M
+
+Purpose:
+    -
+
+Data Members:
+    -
+
+Member Functions:
+    -
+
+*/
+
 class Porc:public Fighter
 {
     public:

@@ -3,7 +3,6 @@
 #include <iostream>
 #include <iomanip>
 
-
 using namespace std;
 
 View::View(int start, int size):emYStart(start),emYSize(size)
@@ -17,8 +16,9 @@ void View::displayArr(Array<char>& arr)
     y = arr.getY();
 
     //A string of escape characters that clears the console
-    cout << "\033[2J\033[1;1H";
-
+    #ifdef CLEAR_CONSOLE
+        cout << "\033[2J\033[1;1H";
+    #endif
  
 
     for(int i = 0; i < x+2; i++)
@@ -28,6 +28,7 @@ void View::displayArr(Array<char>& arr)
 
     cout << endl;
 
+    int midPoint = (emYStart) + ( (emYSize % 2 == 0) ? emYStart/2 : (emYStart+1)/2 ); 
 
     for(int i = 0; i < y; i++)
     {
@@ -51,6 +52,10 @@ void View::displayArr(Array<char>& arr)
                 cout << "\033[1m\033[36m";
             if(avatar == 'p')
                 cout << "\033[1m\033[35m";
+            if(avatar == 's')
+                cout << "\033[1m\033[40m";
+            if(avatar == 'm')
+                cout << "\033[1m\033[46m";
             if(avatar == '+')
                 cout << "\033[1m\033[37m";
 
@@ -62,8 +67,15 @@ void View::displayArr(Array<char>& arr)
 
         }
 
-        if(i >= emYStart && i <= emYStart+emYSize-1)
+        if(i >= emYStart && i <= emYStart+emYSize-1){
             cout << setw(1) << "=";
+
+            //Display the emerald as close to the middle of the cave as possible
+            if(i == midPoint)
+                cout << setw(1) << "*";            
+
+        }
+            
         else
             cout << setw(1) << "|";
 

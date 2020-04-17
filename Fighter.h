@@ -4,6 +4,22 @@
 #include "Character.h"
 #include "random.h"
 
+/*
+Class: 
+Author: Callum M
+
+Purpose:
+   -
+
+Data Members:
+    -
+
+Member Functions:
+    -
+
+*/
+
+
 class Fighter:public Character
 {
     public:
