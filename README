@@ -1,4 +1,170 @@
 Author: Callum MacLeod
-Student Number: 101109519
 
-What else is there to put here yet? Not much....
+Student Number: 101 109 519
+
+IMPORTANT: A detailed rundown of each class is given in the top of the header files
+
+Included Source Files:
+    Borc.cc
+    Character.cc
+    Dorc.cc
+    Dragon.cc
+    Fighter.cc
+    Game.cc
+    Main.cc
+    Miner.cc
+    PathFinding.cc
+    Player.cc
+    playerLogger.cc
+    Porc.cc
+    random.cc
+    Seeker.cc
+    Snarer.cc
+    View.cc
+
+Included Header Files:
+    -Array.h
+    -Borc.h
+    -Character.h
+    -Dorc.h
+    -Dragon.h
+    -Fighter.h
+    -Game.h
+    -LList.h
+    -Miner.h
+    -PathFinding.h
+    -Player.h
+    -playerLogger.h
+    -Porc.h
+    -random.h
+    -Seeker.h
+    -Snarer.h
+    -View.h
+
+Other:
+    -Makefile
+    -README
+
+Compile Instructions:
+    -Before compiling the program their are two decisions that can be made
+        -In Game.h if the definition SLOW is removed, then the program will not sleep after each loop allowing games to finish quicker, however it will
+         reduce from the visual appeal of the game and allowing the user to see all the player movement
+        -The other important pre-processor constant is inside View.h, and it's CLEAR_CONSOLE, by default the program uses special characters to clear
+         the terminal of the previous iteration every time the game is redrawn, by removing this, the previous states of the gameboard will be left alone
+         if the user wishes to examine the execution more closely
+        -These steps could have also been accomplished with command line parameters, however I felt for this specific instance it was more appropriate to
+         instead define constants 
+    -Running 'make' in terminal in the same directory as this program will create an executable named 'main'
+    -To run it, simply enter './main' and it will begin the execution
+    -If you wish to remove all the (.o) files and the executable run 'make clean'
+
+Purpose:
+    -This code simulates a game taking place in a hollow where two adventurers risk their lives trying to steal an emerald from a misunderstood dragon
+    -It randomly spawns monsters in order to inhibit the movement of the players and try to stop them from reaching the emerald
+
+*** DESIGN DECISIONS ***
+
+-Printing the walls in View instead of adding them to the array
+    -This is an important decision I feel the need to touch on. When designing the program I use the 'walls' of the array as natural bounds, that is 0 is the
+     absolute lower limit and the size of each array dimmension is the max, this allowed for much more natural programming of movement and boundary collisions.
+     As well by coding the walls into View, if I later decide to use a different view implemenetation, such as using a GUI, I could decide how to represent my
+     walls in a different fashion, or not even show them at all and use an entirely different concept to show the boundaries, all while leaving my collection
+     and game untouched. 
+
+-Timmy and Harold Health Changes
+    -When testing my program with Timmy and Harold having 15 health, I had too many trials where both Timmy and Harold died thus producing no winners, however
+     while testing I found a sweet spot of 17 health that produces approximately equal number of Timmy wins, Harold wins, and No-winner situations. I undertstand
+     this deviates from the instructions slightly, but it's a necessary change due to my extension which adds new monster which might disrupt the conditions under
+     which you created the program. This change is also explained in the extension lore :)
+
+-MVC Deisgn Pattern
+    -As with all programs in this classed I followed the MVC design pattern when designing and implementing the program. My view class is View, my controller class
+     is Game and all of the character related classes are the model. Game controls the program, it runs the main game loop that moves all the players on the board
+     , checks collisions, and in general makes sure the game runs. After updating the grid which represents all the players and monsters in the game, it then sends
+     this information to View, which is then processed, the walls are added, the cave entrance is added, and everything is printed out with the appropriate colours.
+     
+-Logger Design Pattern
+    -I implemented the 'playerLogger' class to keep track of important information about our heroes. It allows me to check the win conditions of the game much easier
+     instead of iterating through the list of players and monsters and trying to determine if all of the players are alive, or if one of the players has reached the
+     emerald the logger can instead get this information froma a list of players directly and report back to Game. While implementing this I also had to implement a
+     dumb linked list templated called LList, as I mistakeningly also used the std::list to store my players here. 'LList' is 'dumb' as it only implements a singly
+     linked list, and only lets you add new Nodes to it, it does not come with any remove functions. As well the only way to iterate through it is by using the get(int)
+     function at each index, which is very inefficient for large lists, but as this will only ever be storing a few players it felt like an appropriate implemenetation.
+
+-Minor Visual Changes
+    -Compared to your example which uses a blank background I decided to use '~' to represent a blank spot, as it allows the user to easily visualize the game board
+    and where two players are in relation, aswell it adds substance to the board without changing any of the actual functionality. Another small change that I implemented
+    was adding colours to the board. In the View class depending on what character is being printed, it's not a big enough feature to warrant being an extension, but
+    I do feel it adds a visual appeal as you can more clearly make out different types of monsters
+
+-Object Oriented Design
+    -The most significant use of object oriented design that I implemented was the Character class and all of it's derivatives. Character comes with a pure virtual move(int,int) function, meaning
+     that it's abstract, and any class that is derived from it must also implement functionality for it to be valid. Character contains all the basic definitions of what a character in the game
+     should have, such as health, armour, strength, whether they're alive and so on. In the context of the program 4 different types of entities all are derived from Character: Player, Dragon, Fighter,
+     Seeker. All implement a differnet kind of behaviour and thus must be their own class. Character also contains a virtual destructor, as all entities are freed from the same list of Character*, so
+     different derivatives may need to call different kinds of destructors based on what changes they make to the character base. Another interesting bit about Character is that it contains a static
+     function to simulate a fight between two Characters. Nothing is needed to be known about two characters to fight them, so it naturally made sense to make this static so I can use it without referring
+     to any specific character, instead of having one character initiate the fight 
+
+-Template Collection Classes
+    -The collection class that was required for this assignment is Array.h, it implemenets a 2-D array and the functionality for interacting with the array. It stores dynamically allocated T**, and
+     its size is set upon creation and cannot be changed. As mentioned already, I also created a singly linked list template for my playerLogger class that only implements the bare minimum of what's
+     needed to function
+
+************************
+
+*** EXTENSION ***
+
+Type:
+    -Adding new kinds of monster with specialized behaviour
+
+Classes added to Implement Extension:
+    -PathFinding.h
+    -Seeker.h
+    -Snarer.h
+    -Miner.h
+
+Lore:
+    -Recently in the peaceful kingdom, a great pandemic has broken out and caused numerous changes. When some monsters of the kingdom became infected, they mutated and
+     morphed into an entirely new class of monster called a Seeker! Seeker's have an excellent sense of smell and mild intelligence that allow them to look for players
+     and put themselves in a position to ambush the player. Upon being born Seekers bind themselves to the first player that they detect and will keep following them till
+     they either fight the player or the player manages to sneak past them, at which they have no reason to live and seek out a quiet place to die. Unfortunately for these
+     monsters they are still infected with the plague, which causes them to be extremely frail, so much so that a single blow will kill them. Two kinds of seekers have currently
+     been spotted, the first kind are known as 'miners', as they act almost as a land mine. When a player mistakeningly runs into one of these, the miner explodes dealing 7
+     damage to the player, but also losing it's own life in the conflict, they are reprsented as 'm' on the map. The other kind that is known is called a 'Snarer', and can
+     be seen on the map as a 's', these frail monsters are so weak that they can't even deal any damage, but what they do do is slow the player down and prevent them from
+     moving a space for a turn, making the race between Timmy and Harold a little more interesting. Another unintended effect this pandemic had was making players grow an
+     exra heart, giving every player +2 health from their original base, and thankfully the kingdom has developed a vaccine so Timmy and Harold don't have to worry about
+     being crippled by the plague.
+
+How it Works:
+    -Seekers are derived from Character, so they contain all the standard information a character does, however, when being created they need to be supplied with 
+     an extra peice of information: A PathFinding object
+    -PathFinding objects, when created, choose a player that they are going to track, once it is created it is locked to that player for the rest of it's existence. PathFinding
+     objects Take in the current coordinates of a monster, and return a new set of directions that the monster must follow in order to collide with the player.
+    -The Seeker overrides 'move(int,int)' as every other class derived from Character has to, but instead of randomly picking a Y to move to, it asks the PathFinding
+     object contained in it which direction to move and then moves accordingly. All the usual bounds checks are still preformed after moving to ensure that the player
+     stays on the game board.
+    -The Seeker class also had to override the Character destructor, as it's the only derivative of Character that contains dynamically allocated memory that must
+     be deallocated after it finishes existing
+    -The other interesting peice of code that had to be added in was to override the 'hit(Character*)' function that is derived from Character. Since Snarers only snare
+     enemies and don't hit them, it didn't make sense for them to use the usual hit function to calculate damage, but to instead change the function so that it snares any
+     player that it comes in contact with, and doesn't worry about dealing damage.
+
+Usefulness:
+    -The primary reason this is a useful feature in the context of the program is that it adds a monster which isn't brainless, and can instead track the player and deal
+     guranteed status effects consistently.
+    -Another very useful addition is the Snarere Seeker, because these monsters have the ability to stall Timmy or Harold, they're now not guranteed to reach the right hand
+     border of the game at the same time, making each iteration more interesting, and actually allowing one of the Heros to gain a sizeable lead over the other.
+
+Changes Required to Implement:
+    -As discussed prior, the addition of these new monsters throws the balance of the game off, so Timmy and Harold need slightly more health to ensure a variety of outcomes
+    -As well, the spawn rates of the (b)(d)(p)orcs had to be adjusted to allow for the probabilitiy that one of these new monsters spawn. However the likelyhood of a new
+     monster appearing is stil 60% as required in the outline
+
+*****************
+
+Known Bugs:
+    -As of submission none of my testing revealed any bugs.
+    -There are no situations where memory leaks
+    -As well no instances of Seg-faults have been recorded with the current build

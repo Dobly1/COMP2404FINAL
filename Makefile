@@ -1,50 +1,52 @@
+flags = 
+
 main : Main.cc Array.h random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o PathFinding.o Seeker.o Miner.o Snarer.o
-	g++ -g -o main Main.cc random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o PathFinding.o Seeker.o Miner.o Snarer.o
+	g++ $(flags) -o main Main.cc random.o Character.o Fighter.o Player.o Game.o Dragon.o Porc.o Borc.o Dorc.o playerLogger.o View.o PathFinding.o Seeker.o Miner.o Snarer.o
 
 random.o : random.h random.cc
-	g++ -c random.cc
+	g++ $(flags) -c random.cc
 
 Character.o : Character.cc Character.h
-	g++ -c Character.cc
+	g++ $(flags) -c Character.cc
 
 Fighter.o : Fighter.cc Fighter.h Character.cc Character.h
-	g++ -c Fighter.cc
+	g++ $(flags) -c Fighter.cc
 
 Player.o : Player.cc Player.h Character.cc Character.h
-	g++ -c Player.cc
+	g++ $(flags) -c Player.cc
 
 Dragon.o : Dragon.cc Dragon.h Character.cc Character.h
-	g++ -c Dragon.cc
+	g++ $(flags) -c Dragon.cc
 
 Game.o : Game.cc Game.h
-	g++ -g -c Game.cc
+	g++ $(flags) -c Game.cc
 
 Borc.o : Borc.cc Borc.h Fighter.cc Fighter.h Character.cc Character.h
-	g++ -c Borc.cc
+	g++ $(flags) -c Borc.cc
 
 Dorc.o : Dorc.cc Dorc.h Fighter.cc Fighter.h Character.cc Character.h
-	g++ -c Dorc.cc
+	g++ $(flags) -c Dorc.cc
 
 Porc.o : Porc.cc Porc.h Fighter.cc Fighter.h Character.cc Character.h
-	g++ -c Porc.cc
+	g++ $(flags) -c Porc.cc
 
 playerLogger.o : playerLogger.cc playerLogger.h LList.h
-	g++ -c playerLogger.cc
+	g++ $(flags) -c playerLogger.cc
 
 View.o : View.cc View.h
-	g++ -c View.cc
+	g++ $(flags) -c View.cc
 
 PathFinding.o : PathFinding.cc PathFinding.h
-	g++ -c PathFinding.cc
+	g++ $(flags) -c PathFinding.cc
 
 Seeker.o : Seeker.cc Seeker.h Character.cc Character.h
-	g++ -c Seeker.cc
+	g++ $(flags) -c Seeker.cc
 
 Miner.o : Miner.cc Miner.h Seeker.cc Seeker.h Character.cc Character.h
-	g++ -c Miner.cc
+	g++ $(flags) -c Miner.cc
 
 Snarer.o : Snarer.cc Snarer.h Seeker.cc Seeker.h Character.cc Character.h
-	g++ -c Snarer.cc
+	g++ $(flags) -c Snarer.cc
 
 clean : 
 	rm *.o main

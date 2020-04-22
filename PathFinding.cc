@@ -15,7 +15,9 @@ PathFinding::PathFinding(list<Character*>& entities)
     if(it == entities.end())
         it = entities.begin();
 
-    for(int i = 0; i < entities.size(); i++)
+    int s = entities.size();
+
+    for(int i = 0; i < s; i++)
     {
         if(it == entities.end())
             it = entities.begin();

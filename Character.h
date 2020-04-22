@@ -8,8 +8,9 @@ Class: Character
 Author: Callum M
 
 Purpose:
-    -Character is an abstract class as the move function is abstract
-    -It provide a base 
+    -Character provides a template as to what a character is in the reference of the game
+    -It provides all the neccesary stats and attributes to define what a character is and manipulate them in the game
+    -As well it is an abstract class at the move function is pure virtual
 
 Data Members:
     -std::string name

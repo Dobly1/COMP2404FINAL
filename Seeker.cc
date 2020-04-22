@@ -2,8 +2,6 @@
 
 Seeker::Seeker(PathFinding* p, std::string name, int x, int y, char av):Character(name, 0, 5, x, y, av, true),path(p)
 {
-    //Nothing necessary here
-    strength = 1;
 }
 
 Seeker::~Seeker()

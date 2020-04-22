@@ -5,18 +5,9 @@
 #include <time.h>
 
 /*
-Class: 
-Author: Callum M
-
-Purpose:
-    -
-
-Data Members:
-    -
-
-Member Functions:
-    -
-
+About:
+    -The global random function used to create and return a random variable in the range detailed from the parameter. Function was authored
+     by Christine L.
 */
 
 

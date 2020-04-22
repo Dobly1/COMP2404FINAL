@@ -34,12 +34,9 @@ void Game::launch()
 
     draw();
 
-    int x,y;
-
     view.displayArr(grid);
 
     bool running = true;
-
 
     //Main game loop
     while(running)
@@ -49,12 +46,12 @@ void Game::launch()
         for(it = entities.begin(); it != entities.end(); ++it)
         {
             (*it)->move(MAX_X1,MAX_Y1); //Move each entity
-           
+            collisionCheck(); //Make sure everyone fights every iteration
         }   
         
         //See if we should spawn a new enemy
         spawnNewEntity();
-        collisionCheck();
+
         deathCheck();
 
         draw();
@@ -63,8 +60,10 @@ void Game::launch()
 
 
         //So we can actually see the movement
-        //unsigned int sleepTime = 250000;
-        //usleep(sleepTime);
+        #ifdef SLOW
+            unsigned int sleepTime = 250000;
+            usleep(sleepTime);
+        #endif
 
         view.displayArr(grid);
 
@@ -92,8 +91,8 @@ void Game::launch()
 
 void Game::initPlayers()
 {
-    Character* Timmy = new Player("Timmy",3,3,15,MAX_Y1, 'T');
-    Character* Harold = new Player("Harold",5,1,15,MAX_Y1, 'H');
+    Character* Timmy = new Player("Timmy",3,3,17,MAX_Y1, 'T');
+    Character* Harold = new Player("Harold",5,1,17,MAX_Y1, 'H');
 
     entities.push_back(Timmy);
     entities.push_back(Harold);
@@ -116,27 +115,26 @@ void Game::spawnNewEntity()
     if(sP >= 6)
         return;
 
-    //Borc
+    // 0->1 ==> Dorc Spawns
     if(sP <= 1){
-        entities.push_back(new Borc(MAX_X1-1, MAX_Y1-1));
+        entities.push_back(new Dorc(MAX_X1-1, MAX_Y1-1));
         return;
     }
 
-    
+    // 2 ==> Miner Spawns
     if(sP == 2){
         PathFinding* p = new PathFinding(entities);
         entities.push_back(new Miner(p, MAX_X1-1, MAX_Y1-1));
         return;
     }
-    
-    
-    
+            
+    // 3 ==> Borc Spawns
     if(sP <= 3){
-        entities.push_back(new Dorc(MAX_X1-1, MAX_Y1-1));
+        entities.push_back(new Borc(MAX_X1-1, MAX_Y1-1));
         return;
     }
-        
-    
+
+    // 4 ==> Snarer Spawns
     if(sP == 4)
     {
         PathFinding* p = new PathFinding(entities);
@@ -144,7 +142,7 @@ void Game::spawnNewEntity()
         return;
     }
 
-
+    // 5 ==> Porc Spawns
     if(sP <= 5){
         entities.push_back(new Porc(MAX_X1-1, MAX_Y1-1));
         return;
@@ -186,11 +184,11 @@ void Game::deathCheck()
     {
         if(!(*it)->isAlive() && (*it)->isFightable())
         {
-            Character* dedBoi = (*it);
+            Character* deadCharacter = (*it);
             
             it = entities.erase(it);
             
-            delete dedBoi;
+            delete deadCharacter;
         }
             
             

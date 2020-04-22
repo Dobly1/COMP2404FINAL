@@ -1,9 +1,10 @@
 #include "Character.h"
 #include "random.h" 
 
+
 //Default Constructor, allows stats to be specialized
 Character::Character(std::string n, int a, int h,int x, int y,char av, bool f):
-name(n), avatar(av), fightAble(f), xPos(x), alive(true), health(h), snared(false)
+name(n), health(h), armour(a), avatar(av), fightAble(f), xPos(x), alive(true), snared(false)
 {    
     int newY = random(y);
     yPos = newY;
@@ -11,22 +12,21 @@ name(n), avatar(av), fightAble(f), xPos(x), alive(true), health(h), snared(false
 
 //Allows me to give more information about a character
 Character::Character(std::string n, int s, int a, int h, int x, int y,char av, bool f):
-name(n),strength(s),armour(a),health(h),avatar(av),fightAble(f),xPos(x),alive(true), snared(false)
+name(n), health(h), armour(a), avatar(av), fightAble(f), xPos(x), alive(true), strength(s), snared(false)
 {
     int newY = random(y);
     yPos = newY;
 }
 
+//Necessary for virtual destructor to work
 Character::~Character()
-{
-    
-}
+{}
 
 
 void Character::fight(Character* c1, Character* c2)
 {
     //Make sure there's exactly 1 fightable entity and 1 non-fightable entity (Monsters are fightable)
-    if(c1->isFightable() && c2->isFightable() || !c1->isFightable() && !c2->isFightable())
+    if( (c1->isFightable() && c2->isFightable()) || (!c1->isFightable() && !c2->isFightable()))
         return;
 
     c1->hit(c2);
@@ -35,6 +35,9 @@ void Character::fight(Character* c1, Character* c2)
 
 void Character::hit(Character* c1)
 {
+    if(!isAlive() || !c1->isAlive())
+        return;
+
     int dmg = strength - c1->armour;
 
     //Make sure you can't do negative damage
@@ -44,8 +47,10 @@ void Character::hit(Character* c1)
     c1->health = (c1->health <= 0) ? 0 : c1->health;
 
     if(c1->health <= 0)
+    {
         c1->kill();
-
+    }
+        
 }
 
 bool Character::isAlive()
