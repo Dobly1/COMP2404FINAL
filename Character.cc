@@ -17,6 +17,11 @@ name(n),strength(s),armour(a),health(h),avatar(av),fightAble(f),xPos(x),alive(tr
     yPos = newY;
 }
 
+Character::~Character()
+{
+    
+}
+
 
 void Character::fight(Character* c1, Character* c2)
 {

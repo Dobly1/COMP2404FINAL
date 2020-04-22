@@ -9,7 +9,6 @@ Dragon::Dragon(int x, int y, int caveStart, int caveSize):Character("Dragonalot"
     yPos = caveStart + random(caveSize);
 }
 
-
 void Dragon::move(int maxX, int maxY)
 {
     if(yPos == emCaveStart)

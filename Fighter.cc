@@ -5,8 +5,8 @@
 Fighter::Fighter(std::string n, int x, int y,char av):Character(n, 0,5,x,y,av, true)
 {
     //Whatever, good enough for now
-    
 }
+
 
 void Fighter::move(int maxX, int maxY)
 {

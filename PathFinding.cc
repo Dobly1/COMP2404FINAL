@@ -43,6 +43,10 @@ PathFinding::PathFinding(list<Character*>& entities)
 
 }
 
+PathFinding::~PathFinding()
+{
+}
+
 //Send which direction to go to the new seeker class
 void PathFinding::getDirection(int& curX, int& curY, int& newDirec, int& moveX)
 {

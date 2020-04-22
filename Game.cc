@@ -9,16 +9,12 @@ Game::Game():grid(MAX_X1,MAX_Y1),log(EM_CAVE_X, EM_CAVE_Y_START, EM_CAVE_Y_SIZE)
 //Deletes all the characters
 Game::~Game()
 {
-    list<Character*>::iterator it;
-
-    for(it = entities.begin(); it != entities.end(); ++it)
+    while(!entities.empty())
     {
-        Character* deletedChar = (*it);
-
-        it = entities.erase(it);
-
-        delete deletedChar;
+        delete entities.front();
+        entities.pop_front();
     }
+
 }
 
 void Game::launch()
@@ -50,24 +46,25 @@ void Game::launch()
     {
         grid.fill('~');
     
-        
-
         for(it = entities.begin(); it != entities.end(); ++it)
         {
             (*it)->move(MAX_X1,MAX_Y1); //Move each entity
+           
         }   
         
         //See if we should spawn a new enemy
         spawnNewEntity();
-
         collisionCheck();
         deathCheck();
+
         draw();
+
+        
 
 
         //So we can actually see the movement
-        unsigned int sleepTime = 250000;
-        usleep(sleepTime);
+        //unsigned int sleepTime = 250000;
+        //usleep(sleepTime);
 
         view.displayArr(grid);
 
@@ -90,9 +87,7 @@ void Game::launch()
         std::string loseString = "Sorry no winners today :( Only losers";
         view.printStr(loseString);
     }
-    
-
-
+   
 }
 
 void Game::initPlayers()
@@ -114,8 +109,9 @@ void Game::initFighters()
 
 void Game::spawnNewEntity()
 {
+    
     int sP = random(10);
-
+    
     //Not Spawn Odds
     if(sP >= 6)
         return;
@@ -126,18 +122,21 @@ void Game::spawnNewEntity()
         return;
     }
 
+    
     if(sP == 2){
         PathFinding* p = new PathFinding(entities);
         entities.push_back(new Miner(p, MAX_X1-1, MAX_Y1-1));
         return;
     }
-
-
+    
+    
+    
     if(sP <= 3){
         entities.push_back(new Dorc(MAX_X1-1, MAX_Y1-1));
         return;
     }
         
+    
     if(sP == 4)
     {
         PathFinding* p = new PathFinding(entities);
@@ -150,7 +149,7 @@ void Game::spawnNewEntity()
         entities.push_back(new Porc(MAX_X1-1, MAX_Y1-1));
         return;
     }
-        
+    
 }
 
 void Game::collisionCheck()

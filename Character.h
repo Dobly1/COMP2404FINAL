@@ -71,7 +71,7 @@ class Character
     //Constructors
     Character(std::string="Default", int=10, int =10,int=10,int=10,char='x',bool=true);
     Character(std::string, int, int, int, int, int, char, bool);
-
+    virtual ~Character();
     //More complex functions
     static void fight(Character*, Character*);
     virtual void move(int, int) = 0;

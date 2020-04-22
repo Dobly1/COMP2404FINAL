@@ -5,6 +5,7 @@ Player::Player(std::string n,int s,int a, int h, int y, char av):Character(n,s,a
     //Nothing to put here
 }
 
+
 void Player::move(int maxX, int maxY)
 {
     if(!alive)

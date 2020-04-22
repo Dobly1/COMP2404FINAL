@@ -7,54 +7,57 @@ playerLogger::playerLogger(int x, int y, int size):emCaveX(x),emCaveYStart(y),em
 
 void playerLogger::subscribe(Character*& c)
 {
-    players.push_back(c);
+    //players.push_back(c);
+    players2.add(c);
 }
 
 void playerLogger::keepRunning(bool& returnVal)
 {
-    list<Character*>::iterator it;
+    int size = players2.getSize();
 
-    //Start off with a value of false, and only true 
     returnVal = false;
 
     int x,y;
 
-    for(it = players.begin(); it != players.end(); ++it)
+    for(int i = 0; i < size; i++)
     {
-        //Check if players are alive first and formost
-        if((*it)->isAlive())
+        Character* curPlayer = players2.get(i);
+
+        if(curPlayer->isAlive())
             returnVal = true;
 
-        //Check if anyone has reached the victory line
-        (*it)->getPos(x,y);
+        curPlayer->getPos(x,y);
 
-        //If someone has reached the emerald then we should immdieatly end the game
-        if( x == emCaveX && ( y >= emCaveYStart && y <= (emCaveYStart + emCaveYSize-1)) && (*it)->isAlive() )
+        if( x == emCaveX && ( y >= emCaveYStart && y <= (emCaveYStart + emCaveYSize-1)) && curPlayer->isAlive() )
         {
             returnVal = false;
             return;
         }
-    }        
+
+    }
+
 }
 
 void playerLogger::getWinner(Character*& winner)
 {
-    list<Character*>::iterator it;
+    int size = players2.getSize();
 
     winner = NULL;
 
     int x,y;
 
-    for(it = players.begin(); it != players.end(); ++it)
-    {    
-        //Check if anyone has reached the victory line
-        (*it)->getPos(x,y);
+    for(int i = 0; i < size; i++)
+    {
+        Character* curPlayer = players2.get(i);
+
+        curPlayer->getPos(x,y);
 
         //If someone has reached the emerald then we should immdieatly end the game
-        if( x == emCaveX && ( y >= emCaveYStart && y <= (emCaveYStart + emCaveYSize-1)) && (*it)->isAlive() )
+        if( x == emCaveX && ( y >= emCaveYStart && y <= (emCaveYStart + emCaveYSize-1)) && curPlayer->isAlive() )
         {
-            winner = (*it);
+            winner = curPlayer;
+
             return;
         }
-    } 
+    }
 }
