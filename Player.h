@@ -28,9 +28,9 @@ Member Functions:
 class Player:public Character
 {
     public:         
-    //(Name, Strength, Armour, Health, xPos, yPos, Avatar)
-    Player(std::string = "Default", int = 10, int = 10, int = 10, int = 0, char = 'P');
-    virtual void move(int,int);
+        //(Name, Strength, Armour, Health, xPos, yPos, Avatar)
+        Player(std::string = "Default", int = 10, int = 10, int = 10, int = 0, char = 'P');
+        virtual void move(int,int);
 };
 
 

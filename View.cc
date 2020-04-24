@@ -12,6 +12,7 @@ void View::displayArr(Array<char>& arr)
 {
     int x,y;
 
+    //Get the dimmensions of the array
     x = arr.getX();
     y = arr.getY();
 
@@ -21,6 +22,7 @@ void View::displayArr(Array<char>& arr)
     #endif
  
 
+    //Print the upper boarded of the map
     for(int i = 0; i < x+2; i++)
     {
         cout << "_";
@@ -28,6 +30,7 @@ void View::displayArr(Array<char>& arr)
 
     cout << endl;
 
+    //Calculate when the emerald cave should be drawn to place the emerald
     int midPoint = (emYStart) + ( (emYSize % 2 == 0) ? emYStart/2 : (emYStart+1)/2 ); 
 
     for(int i = 0; i < y; i++)
@@ -44,18 +47,25 @@ void View::displayArr(Array<char>& arr)
             //Set timmy green
             if(avatar == 'T')
                 cout << "\033[32m";
+            //Harold Blue
             if(avatar == 'H')
                 cout << "\033[34m";
+            //Borcs Yellow
             if(avatar == 'b')
                 cout << "\033[1m\033[33m";
+            //Dorcs Cyan
             if(avatar == 'd')
                 cout << "\033[1m\033[36m";
+            //Porcs Pinks
             if(avatar == 'p')
                 cout << "\033[1m\033[35m";
+            //Snares White with dark background
             if(avatar == 's')
                 cout << "\033[1m\033[40m";
+            //Miners White with Blue background
             if(avatar == 'm')
                 cout << "\033[1m\033[46m";
+            //Death cross bold white
             if(avatar == '+')
                 cout << "\033[1m\033[37m";
 
@@ -67,6 +77,7 @@ void View::displayArr(Array<char>& arr)
 
         }
 
+        //If We're inside the cave entrance also print that
         if(i >= emYStart && i <= emYStart+emYSize-1){
             cout << setw(1) << "=";
 
@@ -76,6 +87,7 @@ void View::displayArr(Array<char>& arr)
 
         }
             
+        //Draw the right border
         else
             cout << setw(1) << "|";
 
@@ -83,6 +95,7 @@ void View::displayArr(Array<char>& arr)
 
     }
 
+    //Draw the bottom border
     for(int i = 0; i < x+2; i++)
     {
         cout << "-";

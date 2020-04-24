@@ -33,12 +33,12 @@ Member Functions:
 class PathFinding
 {
     public:
-    PathFinding(list<Character*>&);
-    ~PathFinding();
-    void getDirection(int&,int&,int&,int&);
+        PathFinding(list<Character*>&);
+        ~PathFinding();
+        void getDirection(int&,int&,int&,int&);
 
     private:
-    Character* tracked;
+        Character* tracked;
 
 };
 

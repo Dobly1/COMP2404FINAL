@@ -46,6 +46,7 @@ void playerLogger::getWinner(Character*& winner)
 
     int x,y;
 
+    //Iterate over all characters for all possible win conditions
     for(int i = 0; i < size; i++)
     {
         Character* curPlayer = players2.get(i);

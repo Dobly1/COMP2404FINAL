@@ -1,6 +1,3 @@
-#include <iostream>
-using namespace std;
-
 #ifndef ARRAY2D_H
 #define ARRAY2D_H
 

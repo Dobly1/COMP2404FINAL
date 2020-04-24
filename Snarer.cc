@@ -7,5 +7,6 @@ Snarer::Snarer(PathFinding* p, int x, int y):Seeker(p, "Snarer", x, y, 's')
 
 void Snarer::hit(Character* c)
 {
+    //Snare the player it hits
     c->snare();
 }

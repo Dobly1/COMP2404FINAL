@@ -8,9 +8,11 @@ Player::Player(std::string n,int s,int a, int h, int y, char av):Character(n,s,a
 
 void Player::move(int maxX, int maxY)
 {
+    //Dead players shouldn't move
     if(!alive)
         return;
 
+    //If snared don't move for a turn and just relax
     if(snared)
     {
         snared = false;

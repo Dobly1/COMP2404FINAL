@@ -34,13 +34,13 @@ Member Functions:
 class Seeker:public Character
 {
     public:
-    Seeker(PathFinding*, std::string = "Seeker", int = 0, int = 0, char = 'S');
-    virtual ~Seeker();
+        Seeker(PathFinding*, std::string = "Seeker", int = 0, int = 0, char = 'S');
+        virtual ~Seeker();
 
-    virtual void move(int,int);
+        virtual void move(int,int);
     
     private:
-    PathFinding* path;
+        PathFinding* path;
 
 };
 

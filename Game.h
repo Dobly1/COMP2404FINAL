@@ -28,7 +28,7 @@
 using namespace std;
 
 //IMPORTANT: COMMENT OUT THE BELOW LINE IF YOU DON'T WANT THE PROGRAM TO SLEEP EVERY LOOP ITERATION
-//#define SLOW
+#define SLOW
 
 //Game Size
 #define MAX_X1 25
@@ -85,25 +85,25 @@ Member Functions:
 class Game
 {
     public:
-    Game();
-    ~Game();
-    void launch();
+        Game();
+        ~Game();
+        void launch();
 
     private:    
-    std::list<Character*> entities;   
-    Array<char> grid;    
-    playerLogger log;
-    View view;
+        std::list<Character*> entities;   
+        Array<char> grid;    
+        playerLogger log;
+        View view;
 
-    void draw();
+        void draw();
 
-    void collisionCheck();
-    void deathCheck();
+        void collisionCheck();
+        void deathCheck();
 
-    void spawnNewEntity();
+        void spawnNewEntity();
 
-    void initFighters();
-    void initPlayers();
+        void initFighters();
+        void initPlayers();
 
 
 };

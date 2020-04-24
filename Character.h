@@ -2,6 +2,7 @@
 #define CHARACTER_H
 
 #include <iostream>
+using namespace std;
 
 /*
 Class: Character
@@ -64,55 +65,53 @@ Member Functions:
 
 */
 
-
-
 class Character
 {
     public:
-    //Constructors
-    Character(std::string="Default", int=10, int =10,int=10,int=10,char='x',bool=true);
-    Character(std::string, int, int, int, int, int, char, bool);
-    virtual ~Character();
-    //More complex functions
-    static void fight(Character*, Character*);
-    virtual void move(int, int) = 0;
-    virtual void hit(Character*);
+        //Constructors
+        Character(std::string="Default", int=10, int =10,int=10,int=10,char='x',bool=true);
+        Character(std::string, int, int, int, int, int, char, bool);
+        virtual ~Character();
+        //More complex functions
+        static void fight(Character*, Character*);
+        virtual void move(int, int) = 0;
+        virtual void hit(Character*);
 
-    //Getters and Setters
-    bool isFightable();
-    bool isAlive();
-    void getPos(int&,int&);
-    char getAvatar();
+        //Getters and Setters
+        bool isFightable();
+        bool isAlive();
+        void getPos(int&,int&);
+        char getAvatar();
 
-    //Fighting behaviour
-    void kill();
-    void snare();
+        //Fighting behaviour
+        void kill();
+        void snare();
 
     private:
-    //Personal Info
-    std::string name;
+        //Personal Info
+        std::string name;
 
-    //Stats
-    int health;
-    int armour;
-    
+        //Stats
+        int health;
+        int armour;
+        
 
-    //Avatar
-    char avatar;
+        //Avatar
+        char avatar;
 
-    //Extra Information
-    bool fightAble;
-    
+        //Extra Information
+        bool fightAble;
+        
 
-    protected:
-    //Position Information
-    int xPos;
-    int yPos;
+        protected:
+        //Position Information
+        int xPos;
+        int yPos;
 
-    //Attrivutes that derived classes need to access
-    bool alive;
-    int strength;
-    bool snared;
+        //Attrivutes that derived classes need to access
+        bool alive;
+        int strength;
+        bool snared;
 
 };
 

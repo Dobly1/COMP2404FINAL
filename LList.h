@@ -51,33 +51,33 @@ class LList
     class Node
     {
         public:
-        T* data;
-        Node* next;
+            T* data;
+            Node* next;
     };
 
     public:
-    LList();
-    ~LList();
+        LList();
+        ~LList();
 
-    //Adds a new element
-    void add(T*);
+        //Adds a new element
+        void add(T*);
 
-    //Returns item at index I
-    T* get(int);
+        //Returns item at index I
+        T* get(int);
 
-    //Returns size of the list
-    int getSize();
+        //Returns size of the list
+        int getSize();
 
     private:
-    Node* head;
-    int size;
+        Node* head;
+        int size;
 };
 
 
 template<class T>
 LList<T>::LList() : head(NULL), size(0)
 {
-    //
+    //Nothing needed
 }
 
 template<class T>

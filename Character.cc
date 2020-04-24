@@ -35,6 +35,7 @@ void Character::fight(Character* c1, Character* c2)
 
 void Character::hit(Character* c1)
 {
+    //If one of the characters isn't alive don't fight
     if(!isAlive() || !c1->isAlive())
         return;
 

@@ -4,6 +4,8 @@
 //#include "Character.h"
 #include "Array.h"
 
+#include <iostream>
+
 /**IMPORTANT: COMMENT NEXT LINE OUT IF YOU DON'T WANT THE PREVIOUS BOARD CLEARED WHEN DISPLAYING GAME**/
 #define CLEAR_CONSOLE
 

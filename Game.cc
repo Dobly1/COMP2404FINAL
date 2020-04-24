@@ -9,6 +9,7 @@ Game::Game():grid(MAX_X1,MAX_Y1),log(EM_CAVE_X, EM_CAVE_Y_START, EM_CAVE_Y_SIZE)
 //Deletes all the characters
 Game::~Game()
 {
+    //Just simple algorithm for deleting everything in the list
     while(!entities.empty())
     {
         delete entities.front();
@@ -52,12 +53,11 @@ void Game::launch()
         //See if we should spawn a new enemy
         spawnNewEntity();
 
+        //Finds any dead monsters and removes them from the game
         deathCheck();
 
+        //Draw the new board into the array of cahrs
         draw();
-
-        
-
 
         //So we can actually see the movement
         #ifdef SLOW
@@ -65,18 +65,20 @@ void Game::launch()
             usleep(sleepTime);
         #endif
 
+        //Send the array to View to be drawn
         view.displayArr(grid);
 
         //Ask the log if we should keep running
         log.keepRunning(running);
     }
 
+    //If we get to this point either we have a winner or we don't, and the getWinner returns either the winning character or NULL
     Character* winner;
     log.getWinner(winner);
 
+    //If a winner was returned then print out their name, else print the losing message
     if(winner)
     {
-        //cout << "And the winner is : " << winner->getAvatar() << "!" << endl;
         std::string out = "And the winner is: ";
         out += winner->getAvatar();
         view.printStr(out);
@@ -91,6 +93,7 @@ void Game::launch()
 
 void Game::initPlayers()
 {
+    //Make our adventurers
     Character* Timmy = new Player("Timmy",3,3,17,MAX_Y1, 'T');
     Character* Harold = new Player("Harold",5,1,17,MAX_Y1, 'H');
 
@@ -103,6 +106,7 @@ void Game::initPlayers()
 
 void Game::initFighters()
 {
+    //Add the dragon straigh to the list of entities
     entities.push_back(new Dragon(MAX_X1-1, MAX_Y1, EM_CAVE_Y_START, EM_CAVE_Y_SIZE));
 }
 
@@ -115,9 +119,13 @@ void Game::spawnNewEntity()
     if(sP >= 6)
         return;
 
-    // 0->1 ==> Dorc Spawns
-    if(sP <= 1){
-        entities.push_back(new Dorc(MAX_X1-1, MAX_Y1-1));
+   
+
+    // 0,1 ==> Snarer Spawns
+    if(sP <= 1)
+    {
+        PathFinding* p = new PathFinding(entities);
+        entities.push_back(new Snarer(p, MAX_X1-1, MAX_Y1-1));
         return;
     }
 
@@ -129,21 +137,20 @@ void Game::spawnNewEntity()
     }
             
     // 3 ==> Borc Spawns
-    if(sP <= 3){
+    if(sP == 3){
         entities.push_back(new Borc(MAX_X1-1, MAX_Y1-1));
         return;
     }
 
-    // 4 ==> Snarer Spawns
-    if(sP == 4)
-    {
-        PathFinding* p = new PathFinding(entities);
-        entities.push_back(new Snarer(p, MAX_X1-1, MAX_Y1-1));
+     // 4 ==> Dorc Spawns
+    if(sP == 4){
+        entities.push_back(new Dorc(MAX_X1-1, MAX_Y1-1));
         return;
     }
+    
 
     // 5 ==> Porc Spawns
-    if(sP <= 5){
+    if(sP == 5){
         entities.push_back(new Porc(MAX_X1-1, MAX_Y1-1));
         return;
     }
@@ -152,6 +159,7 @@ void Game::spawnNewEntity()
 
 void Game::collisionCheck()
 {
+    //3 Iterators needed to cover all the 
     list<Character*>::iterator it = entities.begin();
     list<Character*>::iterator it2;
     list<Character*>::iterator temp;
@@ -164,6 +172,7 @@ void Game::collisionCheck()
     {
         temp = it;
 
+        //Next iterate through every other entity in the last to ensure everyone is matched
         for(it2 = temp++; it2 != entities.end(); ++it2)
         {
             (*it)->getPos(x1,y1);
@@ -206,16 +215,7 @@ void Game::draw()
     //Draw all the players on the map to start
     for(it = entities.begin(); it != entities.end(); ++it)
     {
-        try
-        {
-            (*it)->getPos(x,y);
-            grid.set((*it)->getAvatar(), x, y);
-        }
-        catch(const char* error)
-        {
-            cout << error << " | " << (*it)->getAvatar() << endl;
-        }
-        
-
+        (*it)->getPos(x,y);
+        grid.set((*it)->getAvatar(), x, y);
     }
 }

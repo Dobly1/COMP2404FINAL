@@ -21,7 +21,7 @@ Member Functions:
 class Dorc:public Fighter
 {
     public:
-    Dorc(int=0,int=0);
+        Dorc(int=0,int=0);
     
 
 };

@@ -27,9 +27,9 @@ Member Functions:
 class Fighter:public Character
 {
     public:
-    //Fighter(name,health,avatar)
-    Fighter(std::string="Fighter",int=10,int=10,char='F');
-    virtual void move(int,int);
+        //Fighter(name,health,avatar)
+        Fighter(std::string="Fighter",int=10,int=10,char='F');
+        virtual void move(int,int);
 
     private:
     

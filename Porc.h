@@ -23,7 +23,7 @@ Member Functions:
 class Porc:public Fighter
 {
     public:
-    Porc(int=10,int=0);
+        Porc(int=10,int=0);
 
 };
 

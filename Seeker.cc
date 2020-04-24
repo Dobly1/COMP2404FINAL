@@ -19,6 +19,7 @@ void Seeker::move(int maxX, int maxY)
 
     int direcY, direcX;
 
+    //Ask the path object for directions
     path->getDirection(xPos, yPos, direcY, direcX);
 
 

@@ -1,4 +1,4 @@
-#include <iostream>
+#include <cstdlib>
 
 /*
   You must seed the random number generator with the current
@@ -6,7 +6,7 @@
   following call:  srand( (unsigned)time( NULL ) );
   You may need to include <cstdlib> and <time.h> libraries
 */
-
+using namespace std;
 
 int random(int max)
 {

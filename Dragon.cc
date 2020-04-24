@@ -1,6 +1,4 @@
 #include "Dragon.h"
-#include <iostream>
-
 
 Dragon::Dragon(int x, int y, int caveStart, int caveSize):Character("Dragonalot", 999,999,999,x,y, 'D', true),direction(1),emCaveStart(caveStart),emCaveSize(caveSize)
 {
